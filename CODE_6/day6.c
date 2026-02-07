@@ -1,63 +1,50 @@
-/*Problem: Implement linear search to find key k in an array. Count and display the number of comparisons performed.
+/*Problem: Given a sorted array of n integers, remove duplicates in-place. Print only unique elements in order.
 
 Input:
-- First line: integer n (array size)
-- Second line: n space-separated integers
-- Third line: integer k (key to search)
+- First line: integer n
+- Second line: n space-separated integers (sorted array)
 
 Output:
-- Line 1: "Found at index i" OR "Not Found"
-Line 2: "Comparisons = c"
+- Print unique elements only, space-separated
 
 Example:
 Input:
-5
-10 20 30 40 50
-30
+6
+1 1 2 2 3 3
 
 Output:
-Found at index 2
-Comparisons = 3
+1 2 3
 
-Explanation: Compared with 10, 20, 30 (found at index 2 with 3 comparisons)*/
+Explanation: Keep first occurrence of each element: 1, 2, 3*/
 
 #include <stdio.h>
 
 int main() {
-    int n, k;
-    int comparisons = 0;
-    int foundIndex = -1;
-
-    // Input array size
+    int n;
     scanf("%d", &n);
 
     int arr[n];
 
-    // Input array elements
     for (int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
     }
 
-    // Input key to search
-    scanf("%d", &k);
+    if (n == 0)
+        return 0;
 
-    // Linear search
-    for (int i = 0; i < n; i++) {
-        comparisons++;
-        if (arr[i] == k) {
-            foundIndex = i;
-            break;
+    int j = 0;  // index of last unique element
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] != arr[j]) {
+            j++;
+            arr[j] = arr[i];
         }
     }
 
-    // Output result
-    if (foundIndex != -1) {
-        printf("Found at index %d\n", foundIndex);
-    } else {
-        printf("Not Found\n");
+    // Print unique elements
+    for (int i = 0; i <= j; i++) {
+        printf("%d ", arr[i]);
     }
-
-    printf("Comparisons = %d\n", comparisons);
 
     return 0;
 }
